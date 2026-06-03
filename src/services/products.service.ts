@@ -1,8 +1,7 @@
 import {prisma} from '../lib/prisma.js'
 
-const serviceProducts=()=>{
+export const getAllProducts=async()=>{
 
-    prisma.produto.findMany()
-    
+    prisma.produto.findMany()  
 
 }
