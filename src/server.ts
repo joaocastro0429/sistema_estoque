@@ -1,9 +1,11 @@
 import express from 'express'
 import 'dotenv/config'
-import { getAllProductsController } from './controllers/products.controller.js'
+import router from './routes/routes.products.js'
+
 const server = express()
 
+server.use(express.json())
 
-server.get("/produtos", getAllProductsController)
 
+server.use(router)
 server.listen(process.env.PORT)
