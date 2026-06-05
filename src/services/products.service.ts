@@ -17,3 +17,11 @@ const products=   await prisma.produto.create({
     })
     return products
 }
+
+
+export const getProductById = async(id:string)=>{
+    const product = await prisma.produto.findUnique({
+        where:{id}
+    })
+    return product
+}

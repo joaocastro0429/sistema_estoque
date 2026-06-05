@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import { getAllProducts , createProduct } from "../services/products.service.js"
+import { getAllProducts , createProduct,getProductById } from "../services/products.service.js"
 
 
 
@@ -24,3 +24,31 @@ export const createProductsController = async (
       })
     }
 }
+
+
+export const getProductByIdController = async (req: Request, res: Response) => {
+  try {
+    // Corrigido: req.params.id (params é objeto)
+    const id= req.params.id as string // ou: const id = req.params.id;
+    
+    // Corrigido: passar apenas o id, não {id:string}
+    const product = await getProductById(id);
+    
+    // Verificar se o produto existe
+    if (!product) {
+      return res.status(404).json({ 
+        message: "Produto não encontrado" 
+      });
+    }
+    
+    // Retornar o produto encontrado
+    return res.status(200).json(product);
+    
+  } catch (err) {
+    // Corrigido: throw new Error("mensagem")
+    console.error(err);
+    return res.status(500).json({ 
+      message: "Erro interno do servidor" 
+    });
+  }
+};
